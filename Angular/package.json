@@ -1,5 +1,5 @@
 {
-  "name": "ever-expanding-app",
+  "name": "ever-expanding",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -18,10 +18,7 @@
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
-    "bootstrap": "^5.1.3",
-    "gsap": "^3.10.2",
     "rxjs": "~7.5.0",
-    "three": "^0.139.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

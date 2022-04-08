@@ -1,1 +1,51 @@
-<p>header works!</p>
+<!-- TODO make is invisible for some people you know what i mean -->
+<header>
+    <nav id="bg-altBlack" class="navbar navbar-expand-lg navbar-dark bg-altBlack mb-5">
+        <div class="container-fluid">
+            <a class="navbar-brand text-darkGreen fs-2" routerLink="/home">Ever Expanding</a>
+            <button class="navbar-toggler bg-darkGreen" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item m-2">
+                        <a class="nav-link active text-darkGreen fs-4 text-center mx-2 px-2"
+                            routerLink="/users/profile">Profile</a>
+                    </li>
+                    <li class="nav-item m-2">
+                        <a class="nav-link active text-darkGreen fs-4 text-center mx-2 px-2" routerLink="/posts/add">Add
+                            Post</a>
+                    </li>
+                    <li class="nav-item m-2">
+                        <a class="nav-link active text-darkGreen fs-4 text-center mx-2 px-2"
+                            routerLink="/posts/all">Posts</a>
+                    </li>
+                    <!-- TODO: fix logout if not working properly -->
+                    <li class="nav-item m-2">
+                        <form th:method="post" id="form2" class="container">
+                            <a href="javascript:;" class="nav-link active text-darkGreen fs-4 text-center px-2"
+                                onclick="document.getElementById('form2').submit();"><span>Logout</span></a>
+                        </form>
+                    </li>
+
+
+                    <li class="nav-item m-2">
+                        <a class="nav-link active text-darkGreen fs-4 text-center mx-2 px-2"
+                            routerLink="/about">About</a>
+                    </li>
+                    <li class="nav-item m-2">
+                        <a class="nav-link active text-darkGreen fs-4 text-center mx-2 px-2"
+                        routerLink="/users/login">Login</a>
+                    </li>
+                    <li class="nav-item m-2">
+                        <a class="nav-link active text-darkGreen fs-4 text-center mx-2 px-2"
+                        routerLink="/users/register">Register</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

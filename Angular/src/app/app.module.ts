@@ -1,8 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './core/header/header.component';
+import { CoreModule } from './core/core.module';
+import { FooterComponent } from './core/footer/footer.component';
+import { PagesModule } from './pages/pages.module';
+import { PlanetsModule } from './pages/planets/planets.module';
 
 @NgModule({
   declarations: [
@@ -10,9 +17,18 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    HttpClientModule,
+    RouterModule,
+    AppRoutingModule,
+    CoreModule,
+    PagesModule,
+    PlanetsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+    HeaderComponent,
+    FooterComponent
+  ]
 })
 export class AppModule { }
