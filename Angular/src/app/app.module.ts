@@ -10,6 +10,7 @@ import { CoreModule } from './core/core.module';
 import { FooterComponent } from './core/footer/footer.component';
 import { PagesModule } from './pages/pages.module';
 import { PlanetsModule } from './pages/planets/planets.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -20,9 +21,10 @@ import { PlanetsModule } from './pages/planets/planets.module';
     HttpClientModule,
     RouterModule,
     AppRoutingModule,
-    CoreModule,
+    CoreModule.forRoot(),
     PagesModule,
-    PlanetsModule
+    PlanetsModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [

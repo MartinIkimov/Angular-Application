@@ -1,0 +1,53 @@
+<main>
+  <section
+    class="bg-altGrey text-white rounded border border-2 border-darkGreen position-absolute top-50 start-50 translate-middle">
+    <div class="container p-0">
+      <div class="text-center my-4">
+        <h2>Login</h2>
+      </div>
+      <div class="row mx-5">
+        <div class="col p-0 m-2">
+          <form [formGroup]="loginFormGroup" (ngSubmit)="handleLogin()">
+
+            <p *ngIf="errorMessage" class="text-danger">{{errorMessage}}</p>
+
+            <div>
+              <label for="email" class="form-label mt-3">Email</label>
+              <input formControlName="email" name="email" type="text" class="form-control mb-3" id="email"
+                placeholder="example@example.com">
+            </div>
+
+            <ng-container *ngIf="loginFormGroup.controls['email'].touched && loginFormGroup.controls['email'].invalid">
+              <p *ngIf="loginFormGroup.controls['email'].errors.required" class="text-danger">
+                Email is required!
+              </p>
+
+              <p *ngIf="loginFormGroup.controls['email'].errors.email" class="text-danger">
+                Email is not valid!
+              </p>
+            </ng-container>
+
+            <div>
+              <label for="password" class="form-label mt-3">Password</label>
+              <input formControlName="password" type="password" name="password" class="form-control mb-3" id="password"
+                placeholder="Password">
+            </div>
+
+            <ng-container
+              *ngIf="loginFormGroup.controls['password'].touched && loginFormGroup.controls['password'].invalid">
+              <p *ngIf="loginFormGroup.controls['password'].errors.required" class="text-danger">
+                Password is required!
+              </p>
+            </ng-container>
+
+            <div id="hoverable-btn">
+              <a (click)="handleLogin()" type="submit"><span>LOGIN</span></a>
+            </div>
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import gsap from 'gsap';
 import * as THREE from "three";
 

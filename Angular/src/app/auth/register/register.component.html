@@ -1,0 +1,69 @@
+<main>
+    <section
+        class="bg-altGrey text-white rounded border border-2 border-darkGreen position-absolute top-50 start-50 translate-middle">
+        <div class="container">
+            <div class="text-center my-5">
+                <h2>Register</h2>
+            </div>
+
+            <div class="row mx-5">
+                <div class="col p-0 m-2">
+                    <form [formGroup]="registerFormGroup" (ngSubmit)="handleRegister()" id="myForm">
+                        
+                        <p *ngIf="errorMessage" class="text-danger">{{errorMessage}}</p>
+  
+               
+                        <div>
+                            <label for="username" class="form-label">Username:</label>
+                            <input formControlName="username" id="username" name="username" type="text"
+                                class="form-control" placeholder="Username">
+                        </div>
+
+                        <ng-container *ngIf="shouldShowErrorForControl('username')">
+                            <p class="text-danger">Username must be at least 3 characters long</p>
+                        </ng-container>
+
+                        <div>
+                            <label for="email" class="form-label mt-3">Email address:</label>
+                            <input formControlName="email" type="text" name="email"
+                                class="form-control" id="email" placeholder="name@example.com">
+                        </div>
+
+                        <ng-container *ngIf="shouldShowErrorForControl('email')">
+                            <p class="text-danger">Enter a valid email</p>
+                        </ng-container>
+
+                        <div formGroupName="passwords">
+                            <div>
+                                <label for="password" class="form-label mt-3">Password</label>
+                                <input [class.input-error]="shouldShowErrorForControl('password', passwordsGroup)" formControlName="password" type="password" name="password" class="form-control"
+                                    id="password" placeholder="Password">
+                            </div>
+
+                            <ng-container *ngIf="shouldShowErrorForControl('password', passwordsGroup)">
+                                <p class="text-danger">Password is required</p>
+                            </ng-container>
+
+                            <div>
+                                <label class="form-label mt-3">Repeat
+                                    password</label>
+                                <input formControlName="rePassword" type="password" name="repeatPass"
+                                    class="form-control" id="repeatPass" placeholder="Repeat Password">
+                            </div>
+
+                            <ng-container *ngIf="shouldShowErrorForControl('rePassword', passwordsGroup)">
+                                <p *ngIf="passwordsGroup.controls['rePassword'].errors?.['passwordMissmatch']" class="text-danger">Repeat Password does not match password!</p>
+                            </ng-container>
+                        </div>
+
+                        
+
+                        <div id="hoverable-btn">
+                            <a (click)="handleRegister()" type="submit"><span>Submit</span></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
