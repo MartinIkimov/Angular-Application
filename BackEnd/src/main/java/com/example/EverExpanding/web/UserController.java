@@ -1,10 +1,16 @@
 package com.example.EverExpanding.web;
 
+import com.example.EverExpanding.model.binding.UserLoginErrorBindingModel;
 import com.example.EverExpanding.model.binding.UserRegisterBindingModel;
+import com.example.EverExpanding.model.binding.UserRegisterSignUpModel;
+import com.example.EverExpanding.model.entity.UserEntity;
 import com.example.EverExpanding.model.service.UserServiceModel;
 import com.example.EverExpanding.model.view.UserViewModel;
 import com.example.EverExpanding.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,10 +18,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Objects;
 
-@Controller
+@RestController
 @RequestMapping("/users")
 public class UserController {
 
@@ -27,56 +33,35 @@ public class UserController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    @PostMapping("/login-error")
-    public String failedLogin(
-            @ModelAttribute("email")
-                    String email,
-            RedirectAttributes attributes
-    ) {
-
-        attributes.addFlashAttribute("bad_credentials", true);
-        attributes.addFlashAttribute("email", email);
-
-        return "redirect:/users/login";
-    }
-
-    @GetMapping("/register")
-    public String register(Model model) {
-        if (model.containsAttribute("isEmailUnique")) {
-            model.addAttribute("isEmailUnique", false);
-        } else if (model.containsAttribute("isUsernameUnique")) {
-            model.addAttribute("isUsernameUnique", false);
+    @PostMapping("/login")
+    public boolean loginUser(@RequestBody UserLoginErrorBindingModel userLoginErrorBindingModel) {
+        UserEntity user = userService.findByEmail(userLoginErrorBindingModel.getEmail());
+        if(Objects.equals(user.getPassword(), userLoginErrorBindingModel.getPassword())) {
+            return true;
         }
-        return "register";
+        return false;
     }
+    
+
+//    @PostMapping("/login-error")
+//    public ResponseEntity<?> loginError() {
+//        return new ResponseEntity<>("Invalid username or password", HttpStatus.BAD_REQUEST);
+//    }
 
     @PostMapping("/register")
-    public String registerUser(@Valid UserRegisterBindingModel userRegisterBindingModel,
-                               BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public ResponseEntity<?> registerUser(@RequestBody UserRegisterSignUpModel userRegisterSignUpModel) {
 
-        if (bindingResult.hasErrors() || !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getRepeatPass())) {
-            redirectAttributes.addFlashAttribute("userModel", userRegisterBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userModel", bindingResult);
-
-            return "redirect:register";
+        if(userService.usernameExists(userRegisterSignUpModel.getUsername())) {
+            return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
+        }
+        if(userService.emailExists(userRegisterSignUpModel.getEmail())) {
+            return new ResponseEntity<>("Email is already taken", HttpStatus.BAD_REQUEST);
         }
 
-        if (isEmailUnique(userRegisterBindingModel, redirectAttributes)) {
-            return "redirect:register";
-        }
-
-        if (isUsernameUnique(userRegisterBindingModel, redirectAttributes)) {
-            return "redirect:register";
-        }
-
-        UserServiceModel newUser = modelMapper.map(userRegisterBindingModel, UserServiceModel.class);
+        UserServiceModel newUser = modelMapper.map(userRegisterSignUpModel, UserServiceModel.class);
         userService.registerUserAndLogin(newUser);
-        return "redirect:/";
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Transactional

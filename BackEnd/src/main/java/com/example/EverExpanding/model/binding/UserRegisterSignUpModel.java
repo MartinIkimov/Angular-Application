@@ -1,23 +1,14 @@
 package com.example.EverExpanding.model.binding;
 
-import com.example.EverExpanding.model.entity.Post;
-import com.example.EverExpanding.model.entity.ProfilePicture;
-import com.example.EverExpanding.model.entity.Role;
-
-import javax.validation.constraints.*;
-import java.util.List;
-
-public class UserRegisterBindingModel {
+public class UserRegisterSignUpModel {
 
     private String username;
     private String email;
     private String password;
 
-    public UserRegisterBindingModel() {
+    public UserRegisterSignUpModel() {
     }
 
-    @NotEmpty
-    @Size(min = 3, max = 255)
     public String getUsername() {
         return username;
     }
@@ -26,8 +17,6 @@ public class UserRegisterBindingModel {
         this.username = username;
     }
 
-    @NotEmpty
-    @Email
     public String getEmail() {
         return email;
     }
@@ -36,7 +25,6 @@ public class UserRegisterBindingModel {
         this.email = email;
     }
 
-    @NotEmpty
     public String getPassword() {
         return password;
     }
@@ -44,5 +32,4 @@ public class UserRegisterBindingModel {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }

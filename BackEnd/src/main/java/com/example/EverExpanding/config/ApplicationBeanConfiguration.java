@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-
 import java.util.Map;
 
 @Configuration
@@ -66,5 +65,7 @@ public class ApplicationBeanConfiguration {
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
+
+
 
 }

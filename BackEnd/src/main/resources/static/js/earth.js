@@ -11,7 +11,6 @@ const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('canvas')
 });
 
-//only in the vid
 
 renderer.setSize(canvasContainer.offsetWidth, canvasContainer.offsetHeight);
 //this line of code add more resolution to the image depending on the monitor
