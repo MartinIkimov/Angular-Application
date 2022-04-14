@@ -1,0 +1,13 @@
+
+
+<main>
+    <div class="container-lg border border-darkGreen rounded-3 text-white bg-altBlack mb-5">
+        <div *ngIf="posts">
+            <app-post-list-item *ngFor="let post of posts" [post]="post"></app-post-list-item>
+            <div *ngIf="posts.length === 0">No Posts!</div>
+        </div>
+        <div *ngIf="!posts">
+            Loading...
+        </div>
+    </div>
+</main>

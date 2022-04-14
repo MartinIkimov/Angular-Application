@@ -8,9 +8,11 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './core/header/header.component';
 import { CoreModule } from './core/core.module';
 import { FooterComponent } from './core/footer/footer.component';
-import { PagesModule } from './pages/pages.module';
-import { PlanetsModule } from './pages/planets/planets.module';
+import { PagesModule } from './feature/pages/pages.module';
+import { PlanetsModule } from './feature/pages/planets/planets.module';
 import { AuthModule } from './auth/auth.module';
+import { authInterceptorProviders } from './auth/auth.interceptor';
+import { PostsModule } from './feature/posts/posts.module';
 
 @NgModule({
   declarations: [
@@ -24,9 +26,10 @@ import { AuthModule } from './auth/auth.module';
     CoreModule.forRoot(),
     PagesModule,
     PlanetsModule,
-    AuthModule
+    AuthModule,
+    PostsModule
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [
     AppComponent,
     HeaderComponent,

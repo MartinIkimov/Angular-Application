@@ -50,14 +50,14 @@ export class RegisterComponent implements OnInit {
       password: passwords.password
     }
 
-    this.userService.register$(body).subscribe({
-      next: () => {
+    this.userService.register$(body.username, body.email, body.password).subscribe(
+      data => {
         this.router.navigate(['/users/login'])
       },
-      error: (err) => {
+      err => {
         this.errorMessage = err.error;
       }
-    })
-}
+    )
+  }
 
 }

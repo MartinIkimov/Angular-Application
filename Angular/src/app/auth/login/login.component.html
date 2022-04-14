@@ -12,19 +12,16 @@
             <p *ngIf="errorMessage" class="text-danger">{{errorMessage}}</p>
 
             <div>
-              <label for="email" class="form-label mt-3">Email</label>
-              <input formControlName="email" name="email" type="text" class="form-control mb-3" id="email"
+              <label for="username" class="form-label mt-3">Username</label>
+              <input formControlName="username" name="username" type="text" class="form-control mb-3" id="username"
                 placeholder="example@example.com">
             </div>
 
-            <ng-container *ngIf="loginFormGroup.controls['email'].touched && loginFormGroup.controls['email'].invalid">
-              <p *ngIf="loginFormGroup.controls['email'].errors.required" class="text-danger">
-                Email is required!
+            <ng-container *ngIf="loginFormGroup.controls['username'].touched && loginFormGroup.controls['email'].invalid">
+              <p *ngIf="loginFormGroup.controls['username'].errors.required" class="text-danger">
+                Username is required!
               </p>
 
-              <p *ngIf="loginFormGroup.controls['email'].errors.email" class="text-danger">
-                Email is not valid!
-              </p>
             </ng-container>
 
             <div>
