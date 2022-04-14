@@ -1,5 +1,8 @@
 package com.example.EverExpanding.model.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.util.List;

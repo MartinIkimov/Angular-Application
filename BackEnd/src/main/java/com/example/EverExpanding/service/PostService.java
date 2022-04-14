@@ -20,4 +20,5 @@ public interface PostService {
     boolean isOwner(String name, Long id);
 
     void updatePost(PostServiceModel serviceModel, Long id);
+
 }

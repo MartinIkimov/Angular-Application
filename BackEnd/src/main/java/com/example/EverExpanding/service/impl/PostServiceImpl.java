@@ -61,12 +61,17 @@ public class PostServiceImpl implements PostService {
 
     @Transactional
     @Override
-    @Cacheable("cachedPosts")
     public List<PostViewModelSummary> getAllPosts() {
 
         return postRepository.findAll()
                 .stream()
-                .map(p -> modelMapper.map(p, PostViewModelSummary.class))
+                .map(p -> {
+                    PostViewModelSummary post = modelMapper.map(p, PostViewModelSummary.class);
+                    post.setAuthor(p.getAuthor().getUsername());
+                    Optional<UserEntity> user = userService.findByUsername(post.getAuthor());
+                    post.setAuthorId(user.get().getId());
+                    return post;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -118,6 +123,7 @@ public class PostServiceImpl implements PostService {
 
         postRepository.save(post);
     }
+
 
     private void separateCategoriesIntoList(PostServiceModel serviceModel, Post post) {
         String[] categories = serviceModel.getCategories().split(", ");

@@ -11,6 +11,8 @@ import com.example.EverExpanding.service.CloudinaryService;
 import com.example.EverExpanding.service.MediaService;
 import com.example.EverExpanding.service.PostService;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +29,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/posts")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class PostsController {
 
     private final CloudinaryService cloudinaryService;
@@ -72,10 +75,9 @@ public class PostsController {
     }
 
     @GetMapping("/all")
-    public String allPosts(Model model) {
-        model.addAttribute("posts",
-                postService.getAllPosts());
-        return "posts";
+    public ResponseEntity<List<PostViewModelSummary>> allPosts() {
+        List<PostViewModelSummary> posts = postService.getAllPosts();
+        return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     @GetMapping("/{id}/details")

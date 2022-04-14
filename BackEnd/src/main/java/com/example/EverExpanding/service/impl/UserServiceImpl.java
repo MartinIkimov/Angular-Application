@@ -1,8 +1,10 @@
 package com.example.EverExpanding.service.impl;
 
+import com.example.EverExpanding.model.entity.Post;
 import com.example.EverExpanding.model.entity.UserEntity;
 import com.example.EverExpanding.model.entity.enums.RoleNameEnum;
 import com.example.EverExpanding.model.service.UserServiceModel;
+import com.example.EverExpanding.model.view.PostViewModelSummary;
 import com.example.EverExpanding.model.view.UserViewModel;
 import com.example.EverExpanding.repository.UserRepository;
 import com.example.EverExpanding.service.RoleService;
@@ -17,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,11 +59,6 @@ public class UserServiceImpl implements UserService {
         user.setLikes(0);
 
         userRepository.save(user);
-// this is the spring repsresentation of a user
-
-        UserDetails principal = everExpandingUserService.loadUserByUsername(user.getEmail());
-        Authentication authentication = new UsernamePasswordAuthenticationToken(principal, user.getPassword(), principal.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     @Override
@@ -86,9 +84,11 @@ public class UserServiceImpl implements UserService {
         return modelMapper.map(user, UserViewModel.class);
     }
 
+    @Transactional
     @Override
     public Optional<UserEntity> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
 
 }

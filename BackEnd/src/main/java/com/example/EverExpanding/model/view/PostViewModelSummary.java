@@ -11,9 +11,13 @@ public class PostViewModelSummary {
     private String title;
     private String description;
     private MediaEntity media;
-    private UserEntity author;
+    private String author;
+    private long authorId;
     private List<Category> categories;
     private boolean canDelete;
+
+    public PostViewModelSummary() {
+    }
 
     public String getTitle() {
         return title;
@@ -31,11 +35,11 @@ public class PostViewModelSummary {
         this.description = description;
     }
 
-    public UserEntity getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(UserEntity author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
@@ -69,5 +73,13 @@ public class PostViewModelSummary {
 
     public void setCanDelete(boolean canDelete) {
         this.canDelete = canDelete;
+    }
+
+    public long getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(long authorId) {
+        this.authorId = authorId;
     }
 }

@@ -1,20 +1,15 @@
-package com.example.EverExpanding.model.binding;
+package com.example.EverExpanding.model.request;
 
-import com.example.EverExpanding.model.entity.Post;
-import com.example.EverExpanding.model.entity.ProfilePicture;
-import com.example.EverExpanding.model.entity.Role;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
-import javax.validation.constraints.*;
-import java.util.List;
-
-public class UserRegisterBindingModel {
-
+public class UserRegister {
     private String username;
     private String email;
     private String password;
-    private String repeatPass;
 
-    public UserRegisterBindingModel() {
+    public UserRegister() {
     }
 
     @NotEmpty
@@ -44,14 +39,5 @@ public class UserRegisterBindingModel {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @NotEmpty
-    public String getRepeatPass() {
-        return repeatPass;
-    }
-
-    public void setRepeatPass(String repeatPass) {
-        this.repeatPass = repeatPass;
     }
 }
