@@ -19,4 +19,6 @@ public interface UserService {
     UserViewModel findById(Long id);
 
     Optional<UserEntity> findByUsername(String username);
+
+    UserEntity findUserEntityByUsername(String email);
 }

@@ -1,4 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
 import { HomePageComponent } from './feature/pages/home-page/home-page.component';
 import { PageNotFoundComponent } from './feature/pages/page-not-found/page-not-found.component';
 
@@ -11,6 +12,18 @@ const routes: Routes = [
     {
         path: 'home',
         component: HomePageComponent
+    },
+    {
+        path:'users',
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+    },
+    {
+        path: 'planets',
+        loadChildren: () => import('./feature/pages/planets/planets.module').then(m => m.PlanetsModule)
+    },
+    {
+        path: 'posts',
+        loadChildren: () => import('./feature/posts/posts.module').then(m => m.PostsModule)
     },
     {
         path: '**',

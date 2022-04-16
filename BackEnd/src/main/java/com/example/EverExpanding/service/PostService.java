@@ -21,4 +21,5 @@ public interface PostService {
 
     void updatePost(PostServiceModel serviceModel, Long id);
 
+    boolean findByUsernameAndPostIdCanDelete(long id, String name);
 }

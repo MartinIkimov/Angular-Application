@@ -1,1 +1,0 @@
-document.getElementById("exampleText").value = "fun, fiction";

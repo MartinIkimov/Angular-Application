@@ -11,5 +11,6 @@ export interface IPost extends IBase{
     likes: number,
     comments: string[],
     media: string,
-    categories: string[]
+    categories: string[],
+    canDelete: boolean
 }

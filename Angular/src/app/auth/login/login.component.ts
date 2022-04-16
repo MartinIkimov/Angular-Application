@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IUser } from 'src/app/core/interfaces/user';
 import { TokenStorageService } from 'src/app/core/token-storage.service';
 import { UserService } from 'src/app/core/user.service';
 
@@ -14,7 +13,7 @@ export class LoginComponent implements OnInit {
   errorMessage: string = '';
 
   loginFormGroup: FormGroup = this.formBuilder.group({
-    username: new FormControl('', [Validators.required]),
+    username: new FormControl('', [Validators.required, Validators.minLength(3)]),
     password: new FormControl('', [Validators.required])
   })
 
@@ -35,7 +34,6 @@ export class LoginComponent implements OnInit {
     }
 
   handleLogin(): void {
-    this.errorMessage = '';
     const {username, password} = this.loginFormGroup.value;
     this.userService.login$(username, password).subscribe(
       data => {
@@ -52,6 +50,7 @@ export class LoginComponent implements OnInit {
         this.errorMessage = 'Invalid username or password';
       }
     );
+    console.log(this.errorMessage)
   }
   reloadPage(): void {
     window.location.reload();

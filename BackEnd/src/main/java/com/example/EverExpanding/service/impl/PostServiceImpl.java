@@ -42,14 +42,15 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void savePost(PostServiceModel postServiceModel, String email, Long id) {
+    public void savePost(PostServiceModel postServiceModel, String username, Long id) {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formatDateTime = now.format(formatter);
+        UserEntity user = userService.findUserEntityByUsername(username);
 
 
         Post post = modelMapper.map(postServiceModel, Post.class);
-        post.setAuthor(userService.findByEmail(email));
+        post.setAuthor(user);
         separateCategoriesIntoList(postServiceModel, post);
         post.setCreatedOn(LocalDateTime.parse(formatDateTime, formatter));
 
@@ -80,6 +81,9 @@ public class PostServiceImpl implements PostService {
     public PostViewModelSummary findById(Long id, String username) {
         Post post = postRepository.findById(id).orElse(null);
         PostViewModelSummary postViewModelSummary = modelMapper.map(post, PostViewModelSummary.class);
+        Optional<UserEntity> user = userService.findByUsername(username);
+        postViewModelSummary.setAuthor(username);
+        postViewModelSummary.setAuthorId(user.get().getId());
         postViewModelSummary.setCanDelete(isOwner(username, id));
 
         return postViewModelSummary;
@@ -97,14 +101,14 @@ public class PostServiceImpl implements PostService {
 
     public boolean isOwner(String username, Long id) {
         Optional<Post> postOpt = postRepository.findById(id);
-        UserEntity caller = userService.findByEmail(username);
+        Optional<UserEntity> caller = userService.findByUsername(username);
 
-        if(postOpt.isEmpty() || caller == null) {
+        if(postOpt.isEmpty() || caller.isEmpty()) {
             return false;
         } else {
             Post post = postOpt.get();
 
-            return isAdmin(caller) || post.getAuthor().getEmail().equals(username);
+            return isAdmin(caller) || post.getAuthor().getUsername().equals(username);
         }
     }
 
@@ -124,6 +128,11 @@ public class PostServiceImpl implements PostService {
         postRepository.save(post);
     }
 
+    @Override
+    public boolean findByUsernameAndPostIdCanDelete(long id, String name) {
+        return isOwner(name, id);
+    }
+
 
     private void separateCategoriesIntoList(PostServiceModel serviceModel, Post post) {
         String[] categories = serviceModel.getCategories().split(", ");
@@ -137,8 +146,8 @@ public class PostServiceImpl implements PostService {
         post.setCategories(categoryList);
     }
 
-    private boolean isAdmin(UserEntity user) {
-        return user.getRoles()
+    private boolean isAdmin(Optional<UserEntity> user) {
+        return user.get().getRoles()
                 .stream()
                 .map(Role::getRole)
                 .anyMatch(r -> r == RoleNameEnum.ADMIN);

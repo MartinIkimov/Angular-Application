@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { IPost } from 'src/app/core/interfaces/post';
-import { environment } from 'src/environments/environment';
+import { PostService } from 'src/app/core/post.service';
+
 
 @Component({
   selector: 'app-post-list',
@@ -12,15 +12,14 @@ export class PostListComponent implements OnInit {
 
   posts: IPost[];
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private postService: PostService) { }
 
-  ngOnInit(): void {
-    this.httpClient.get<IPost[]>(`${environment.apiUrl}posts/all`). subscribe(
-      postsFromGet => {
-        this.posts = postsFromGet;
-        console.log(postsFromGet)
-      }
-    )
+      ngOnInit(): void {
+      this.postService.getAllPosts$().subscribe(data => {
+        this.posts = data;
+      });
+
   }
 
 }

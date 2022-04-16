@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,14 +57,14 @@ public class CommentServiceImpl implements CommentService {
         //TODO objectNotFound
 
         Post post = postService.findPostById(serviceModel.getPostId());
-        UserEntity author = userService.findByEmail(serviceModel.getCreator());
+        Optional<UserEntity> author = userService.findByUsername(serviceModel.getCreator());
 
         Comment comment = new Comment();
         comment.setMessage(serviceModel.getMessage());
         comment.setCreated(LocalDateTime.parse(formatDateTime, formatter));
         comment.setPost(post);
-        comment.setAuthor(author);
-        comment.setUser(author.getUsername());
+        comment.setAuthor(userService.findByEmail(author.get().getEmail()));
+        comment.setUser(author.get().getUsername());
 
         Comment saved = commentRepository.save(comment);
 

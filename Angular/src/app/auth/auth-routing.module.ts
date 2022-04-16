@@ -1,9 +1,9 @@
 import { RouterModule, Routes } from "@angular/router";
+import { AuthGuard } from "../core/guards/auth.guard";
 import { AboutComponent } from "../feature/pages/about/about.component";
 import { LoginComponent } from "./login/login.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { RegisterComponent } from "./register/register.component";
-
 
 const routes: Routes = [
     {
@@ -16,8 +16,7 @@ const routes: Routes = [
     },
     {
         path: 'users/profile',
-        // TODO stoimenovg: uncomment.
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         component: ProfileComponent,
     },
     {

@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { UserService } from './user.service';
+import { PostService } from './post.service';
 
 
 
@@ -27,9 +28,7 @@ export class CoreModule {
       ngModule: CoreModule,
       providers: [
         UserService,
-        // ThemeService,
-        // storageServiceProvider,
-        // PostService
+        PostService
       ]
     }
   }

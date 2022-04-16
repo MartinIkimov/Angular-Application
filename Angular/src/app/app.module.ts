@@ -13,6 +13,7 @@ import { PlanetsModule } from './feature/pages/planets/planets.module';
 import { AuthModule } from './auth/auth.module';
 import { authInterceptorProviders } from './auth/auth.interceptor';
 import { PostsModule } from './feature/posts/posts.module';
+import { AuthGuard } from './core/guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { PostsModule } from './feature/posts/posts.module';
     AuthModule,
     PostsModule
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders, AuthGuard],
   bootstrap: [
     AppComponent,
     HeaderComponent,

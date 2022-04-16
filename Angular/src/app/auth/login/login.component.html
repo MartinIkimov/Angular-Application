@@ -9,7 +9,10 @@
         <div class="col p-0 m-2">
           <form [formGroup]="loginFormGroup" (ngSubmit)="handleLogin()">
 
-            <p *ngIf="errorMessage" class="text-danger">{{errorMessage}}</p>
+            <ng-container *ngIf="errorMessage">
+              <p class="text-danger">Invalid username or password</p>
+            </ng-container>
+            
 
             <div>
               <label for="username" class="form-label mt-3">Username</label>
@@ -17,9 +20,9 @@
                 placeholder="example@example.com">
             </div>
 
-            <ng-container *ngIf="loginFormGroup.controls['username'].touched && loginFormGroup.controls['email'].invalid">
-              <p *ngIf="loginFormGroup.controls['username'].errors.required" class="text-danger">
-                Username is required!
+            <ng-container *ngIf="loginFormGroup.controls['username'].touched && loginFormGroup.controls['username'].invalid">
+              <p *ngIf="loginFormGroup.controls['username'].errors.required || loginFormGroup.controls['username'].errors.minlength" class="text-danger">
+                Username should be at least 3 characters long!
               </p>
 
             </ng-container>
