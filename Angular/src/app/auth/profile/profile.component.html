@@ -27,7 +27,7 @@
             <app-posts-list-item-minimized *ngFor="let post of currentUserPosts" [post]="post">
         
             </app-posts-list-item-minimized>
-            <div *ngIf="currentUserPosts.length === 0"> No Themes!</div>
+            <div *ngIf="currentUserPosts.length === 0"> No Posts!</div>
         </div>
         <div *ngIf="!currentUserPosts">
             Loading...

@@ -249,3 +249,17 @@ body {
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
     background-color:#6A6E70;
 }
+
+::-webkit-scrollbar {
+    width: 12px;
+    background-color: black;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(transparent, #86C232);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(transparent, #618930);
+}
