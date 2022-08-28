@@ -1,7 +1,6 @@
 package com.example.EverExpanding.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.transaction.annotation.Transactional;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "posts")
 public class Post extends BaseEntity{
+
     private UserEntity author;
     private LocalDateTime createdOn;
     private String title;
@@ -22,6 +22,7 @@ public class Post extends BaseEntity{
 
     public Post() {
     }
+
 
     @ManyToOne
     public UserEntity getAuthor() {

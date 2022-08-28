@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError } from 'rxjs';
 import { CreateUserDto, UserService } from 'src/app/core/user.service';
 import { passwordMatch } from '../util';
 

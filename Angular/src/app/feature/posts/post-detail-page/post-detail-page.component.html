@@ -63,16 +63,13 @@
                         </div>
                     </div>
                 </form>
-                <!-- Comments submission -->
             </div>
 
-            <!-- All comments section -->
             <div>
                 <span id="commentCtnr">
-                    <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+                    <app-comment id="border border-success" *ngFor="let comment of comments" [comment]="comment"></app-comment>
                 </span>
             </div>
-            <!-- EO: All comments section -->
         </section>
     </div>
 </main>

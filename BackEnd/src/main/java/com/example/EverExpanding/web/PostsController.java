@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/posts")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class PostsController {
@@ -116,19 +116,6 @@ public class PostsController {
         }
     }
 
-//    @GetMapping("/{id}/edit")
-//    public String editPost(@PathVariable Long id, Model model, Principal principal) {
-//        PostViewModelSummary postViewModelSummary = postService.findById(id, principal.getName());
-//        PostUpdateBindingModel updateModel = modelMapper.map(postViewModelSummary, PostUpdateBindingModel.class);
-//        model.addAttribute("updateModel", updateModel);
-//        return "update";
-//    }
-
-//    @GetMapping("/{id}/edit/errors")
-//    public String editOfferErrors(@PathVariable Long id) {
-//        return "update";
-//    }
-
     @PatchMapping("/{id}/edit")
     public ResponseEntity<?> editPost(@PathVariable long id,
                             @RequestParam(value = "imageFile", required = false) MultipartFile file,
@@ -168,11 +155,5 @@ public class PostsController {
         media.setPublicId(uploaded.getPublicId());
 
         return media;
-    }
-
-
-    @ModelAttribute("postModel")
-    public PostBindingModel postBindingModel() {
-        return new PostBindingModel();
     }
 }

@@ -13,8 +13,6 @@ export class PostsListItemMinimizedComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.post);
-    console.log("NG ON INIT BBY")
   }
 
 }

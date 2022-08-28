@@ -8,7 +8,7 @@ import { PostService } from 'src/app/core/post.service';
 })
 export class PostPageComponent implements OnInit {
 
-  constructor(private postService: PostService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

@@ -1,0 +1,39 @@
+<main class="container-lg border border-darkGreen rounded-3 text-white bg-altBlack align-content-center mb-5"
+      style="width: 500px">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-7">
+            <div class="profile-card p-3 py-4" th:object="${profile}">
+                <div class="text-center">
+                    <img src="/assets/user_photo.png" width="100" class="rounded-circle">
+                </div>
+                <div class="text-center mt-3">
+                    <span class="bg-altGreyLight p-1 px-4 rounded text-white" *ngIf="user.roles.length == 2">Admin</span>
+                    <span class="bg-altGreyLight p-1 px-4 rounded text-white" *ngIf="user.roles.length == 1">User</span>
+                    <h5 class="mt-4 mb-2">Username</h5>
+                    <span>{{user.username}}</span>
+                    <h5 class="mt-2 mb-2">Likes</h5>
+                    <span>{{user.likes}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<section>
+    <div class="container-lg border border-darkGreen rounded-3 text-white bg-altBlack mb-5">
+        <h5 class="mt-4 mb-0 text-center">Posts:</h5>
+        <div *ngIf="user.posts">
+            <app-posts-list-item-minimized *ngFor="let post of user.posts" [post]="post">
+        
+            </app-posts-list-item-minimized>
+            <div *ngIf="user.posts.length === 0"> No Posts!</div>
+        </div>
+        <div *ngIf="!user.posts">
+            Loading...
+        </div>
+    </div>
+</section>
+
+
+

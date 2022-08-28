@@ -30,4 +30,8 @@ export class UserService {
       password
     }, httpOptions)
   }
+
+  getUserById(userId: number): Observable<any> {
+    return this.httpClient.get<any>(`${environment.apiUrl}users/profile/` + userId)
+  }
 }

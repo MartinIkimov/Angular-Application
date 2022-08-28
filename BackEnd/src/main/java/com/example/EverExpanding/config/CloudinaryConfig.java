@@ -12,7 +12,7 @@ public class CloudinaryConfig {
     private String apiSecret;
 
     public String getCloudName() {
-        return "everexpanding";
+        return cloudName;
     }
 
     /**
@@ -21,7 +21,7 @@ public class CloudinaryConfig {
      * @return this
      */
     public CloudinaryConfig setCloudName(String cloudName) {
-        this.cloudName = "everexpanding";
+        this.cloudName = cloudName;
         return this;
     }
 

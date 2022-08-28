@@ -10,7 +10,7 @@ import com.example.EverExpanding.model.response.JwtResponse;
 import com.example.EverExpanding.model.response.MessageResponse;
 import com.example.EverExpanding.model.service.UserServiceModel;
 import com.example.EverExpanding.model.view.PostInProfileView;
-import com.example.EverExpanding.model.view.PostViewModelSummary;
+import com.example.EverExpanding.model.view.UserProfileViewModel;
 import com.example.EverExpanding.model.view.UserViewModel;
 import com.example.EverExpanding.service.PostService;
 import com.example.EverExpanding.service.UserService;
@@ -21,11 +21,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -33,13 +31,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Controller
+@RestController
 @RequestMapping("/users")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class UserController {
@@ -47,17 +44,14 @@ public class UserController {
     private final UserService userService;
     private final ModelMapper modelMapper;
     private final AuthenticationManager authenticationManager;
-    private final PasswordEncoder encoder;
     private final JwtUtils jwtUtils;
-    private final PostService postService;
 
-    public UserController(UserService userService, ModelMapper modelMapper, AuthenticationManager authenticationManager, PasswordEncoder encoder, JwtUtils jwtUtils, PostService postService) {
+
+    public UserController(UserService userService, ModelMapper modelMapper, AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
         this.userService = userService;
         this.modelMapper = modelMapper;
         this.authenticationManager = authenticationManager;
-        this.encoder = encoder;
         this.jwtUtils = jwtUtils;
-        this.postService = postService;
     }
 
 
@@ -70,7 +64,7 @@ public class UserController {
 
         EverExpandingUser userDetails = (EverExpandingUser) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
+                .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
@@ -114,34 +108,13 @@ public class UserController {
             postInProfileView.setCreatedOn(post.getCreatedOn());
             posts.add(postInProfileView);
         }
-        System.out.println();
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
-
     @GetMapping("/profile/{id}")
-    public String userProfile(@PathVariable Long id, Model model) {
-        UserViewModel userViewModel = modelMapper.map(userService.findById(id), UserViewModel.class);
-        model.addAttribute("profile", userViewModel);
-        return "profile";
-    }
-
-    private boolean isUsernameUnique(UserRegisterBindingModel userRegisterBindingModel, RedirectAttributes redirectAttributes) {
-        if (userService.usernameExists(userRegisterBindingModel.getUsername())) {
-            redirectAttributes.addFlashAttribute("userModel", userRegisterBindingModel);
-            redirectAttributes.addFlashAttribute("isUsernameUnique", true);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean isEmailUnique(UserRegisterBindingModel userRegisterBindingModel, RedirectAttributes redirectAttributes) {
-        if (userService.emailExists(userRegisterBindingModel.getEmail())) {
-            redirectAttributes.addFlashAttribute("userModel", userRegisterBindingModel);
-            redirectAttributes.addFlashAttribute("isEmailUnique", true);
-            return true;
-        }
-        return false;
+    public ResponseEntity<UserProfileViewModel> userProfile(@PathVariable Long id) {
+        UserProfileViewModel userProfileViewModel = modelMapper.map(userService.findById(id), UserProfileViewModel.class);
+        return new ResponseEntity<>(userProfileViewModel, HttpStatus.OK);
     }
 
     private String parseJwt(HttpServletRequest request) {
@@ -150,10 +123,5 @@ public class UserController {
             return headerAuth.substring(7, headerAuth.length());
         }
         return null;
-    }
-
-    @ModelAttribute("userModel")
-    public UserRegisterBindingModel userModel() {
-        return new UserRegisterBindingModel();
     }
 }

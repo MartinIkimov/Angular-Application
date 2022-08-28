@@ -4,6 +4,7 @@ import { AboutComponent } from "../feature/pages/about/about.component";
 import { LoginComponent } from "./login/login.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { RegisterComponent } from "./register/register.component";
+import { UserProfileComponent } from "./user-profile/user-profile.component";
 
 const routes: Routes = [
     {
@@ -18,6 +19,11 @@ const routes: Routes = [
         path: 'users/profile',
         canActivate: [AuthGuard],
         component: ProfileComponent,
+    },
+    {
+        path: 'users/profile/:id',
+        canActivate:[AuthGuard],
+        component:UserProfileComponent
     },
     {
         path: 'about',

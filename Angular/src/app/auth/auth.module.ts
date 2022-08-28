@@ -6,7 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PostsModule } from '../feature/posts/posts.module';
-
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 @NgModule({
@@ -14,6 +14,7 @@ import { PostsModule } from '../feature/posts/posts.module';
     RegisterComponent,
     LoginComponent,
     ProfileComponent,
+    UserProfileComponent,
   ],
   imports: [
     CommonModule,

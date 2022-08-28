@@ -1,10 +1,11 @@
 package com.example.EverExpanding.model.entity;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
+
 import java.util.List;
 
 @Entity
@@ -17,6 +18,7 @@ public class UserEntity extends BaseEntity{
     private Integer likes;
     private ProfilePicture profilePicture;
     private List<Role> roles;
+
     private List<Post> posts;
 
     public UserEntity() {

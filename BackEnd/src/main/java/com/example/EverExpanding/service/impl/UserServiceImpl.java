@@ -94,6 +94,4 @@ public class UserServiceImpl implements UserService {
     public UserEntity findUserEntityByUsername(String username) {
         return userRepository.findUserEntityByUsername(username);
     }
-
-
 }

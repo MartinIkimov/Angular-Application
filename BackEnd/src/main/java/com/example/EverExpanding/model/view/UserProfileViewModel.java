@@ -3,22 +3,19 @@ package com.example.EverExpanding.model.view;
 import com.example.EverExpanding.model.entity.Post;
 import com.example.EverExpanding.model.entity.ProfilePicture;
 import com.example.EverExpanding.model.entity.Role;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.List;
 
-public class UserViewModel {
+public class UserProfileViewModel {
 
     private Long id;
     private String username;
     private Integer likes;
     private ProfilePicture profilePicture;
     private List<Role> roles;
+    private List<PostInProfileView> posts;
 
-    private List<Post> posts;
-
-    public UserViewModel() {
+    public UserProfileViewModel() {
     }
 
     public Long getId() {
@@ -61,11 +58,11 @@ public class UserViewModel {
         this.roles = roles;
     }
 
-    public List<Post> getPosts() {
+    public List<PostInProfileView> getPosts() {
         return posts;
     }
 
-    public void setPosts(List<Post> posts) {
+    public void setPosts(List<PostInProfileView> posts) {
         this.posts = posts;
     }
 }
