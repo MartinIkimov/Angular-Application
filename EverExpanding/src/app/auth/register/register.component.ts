@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CreateUserDto, UserService } from 'src/app/core/user.service';
 import { passwordMatch } from '../util';
@@ -13,30 +13,30 @@ export class RegisterComponent implements OnInit {
 
   errorMessage: string = '';
 
-  passwordControl = new FormControl('', [Validators.required]);
+  passwordControl = new UntypedFormControl('', [Validators.required]);
 
-  get passwordsGroup(): FormGroup {
-    return this.registerFormGroup.controls['passwords'] as FormGroup;
+  get passwordsGroup(): UntypedFormGroup {
+    return this.registerFormGroup.controls['passwords'] as UntypedFormGroup;
   }
 
-  registerFormGroup: FormGroup = this.formBuilder.group({
-    'username': new FormControl('', [Validators.minLength(3), Validators.required]),
-    'email': new FormControl('', [Validators.required, Validators.email]),
-    'passwords': new FormGroup({
+  registerFormGroup: UntypedFormGroup = this.formBuilder.group({
+    'username': new UntypedFormControl('', [Validators.minLength(3), Validators.required]),
+    'email': new UntypedFormControl('', [Validators.required, Validators.email]),
+    'passwords': new UntypedFormGroup({
       'password': this.passwordControl,
-      'rePassword': new FormControl('', [passwordMatch(this.passwordControl)])
+      'rePassword': new UntypedFormControl('', [passwordMatch(this.passwordControl)])
     })
   })
 
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
     private router: Router,
     private userService: UserService) { }
 
   ngOnInit(): void {
   }
 
-  shouldShowErrorForControl(controlName: string, sourceGroup: FormGroup = this.registerFormGroup) {
+  shouldShowErrorForControl(controlName: string, sourceGroup: UntypedFormGroup = this.registerFormGroup) {
     return sourceGroup.controls[controlName].touched && sourceGroup.controls[controlName].invalid
   }
 

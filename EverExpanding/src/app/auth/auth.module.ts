@@ -21,7 +21,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     FormsModule,
     ReactiveFormsModule,
     AuthRoutingModule,
-    PostsModule
+    PostsModule,
   ]
 })
 export class AuthModule { }

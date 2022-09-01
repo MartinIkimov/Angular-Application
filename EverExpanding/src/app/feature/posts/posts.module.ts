@@ -10,6 +10,9 @@ import { CommentComponent } from './comment/comment.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostsAddComponent } from './posts-add/posts-add.component';
 import { PostUpdateComponent } from './post-update/post-update.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -28,10 +31,14 @@ import { PostUpdateComponent } from './post-update/post-update.component';
     CommonModule,
     PostsRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule,
+    BrowserAnimationsModule
   ], 
   exports: [
-    PostsListItemMinimizedComponent
-  ]
+    PostsListItemMinimizedComponent,
+    NgxSpinnerModule
+  ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PostsModule { }

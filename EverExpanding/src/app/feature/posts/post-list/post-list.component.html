@@ -7,7 +7,7 @@
             <div *ngIf="posts.length === 0">No Posts!</div>
         </div>
         <div *ngIf="!posts">
-            Loading...
+            <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#86c232" type = "ball-circus" [fullScreen] = "false"><p style="color: #86C232" > Loading... </p></ngx-spinner>
         </div>
     </div>
 </main>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { IPost } from 'src/app/core/interfaces/post';
 import { PostService } from 'src/app/core/post.service';
 
@@ -13,13 +14,14 @@ export class PostListComponent implements OnInit {
   posts: IPost[];
 
   constructor(
-    private postService: PostService) { }
+    private postService: PostService, private spinner: NgxSpinnerService) { }
 
       ngOnInit(): void {
+      this.spinner.show();
       this.postService.getAllPosts$().subscribe(data => {
         this.posts = data;
+        this.spinner.hide();
       });
-
   }
 
 }

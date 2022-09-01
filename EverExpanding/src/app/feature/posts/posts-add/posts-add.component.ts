@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PostService } from 'src/app/core/post.service';
 import { environment } from 'src/environments/environment';
@@ -12,14 +12,14 @@ import { environment } from 'src/environments/environment';
 })
 export class PostsAddComponent implements OnInit {
 
-  addPostFormGroup: FormGroup = this.formBuilder.group({
-    title: new FormControl('', [Validators.required]),
-    categories: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
+  addPostFormGroup: UntypedFormGroup = this.formBuilder.group({
+    title: new UntypedFormControl('', [Validators.required]),
+    categories: new UntypedFormControl('', [Validators.required]),
+    description: new UntypedFormControl('', [Validators.required]),
   })
 
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
     private postService: PostService,
     private router: Router) { }
 
@@ -54,11 +54,13 @@ export class PostsAddComponent implements OnInit {
 
 
     this.postService.addPost$(uploadImageData);
-    setTimeout(() => {
-      this.postService.getAllPosts$();
-    }, 5);
-    this.router.navigate(['/posts/all']).then(() => {
-      window.location.reload();
-    });
+    // setTimeout(() => {
+      this.postService.getAllPosts$().subscribe(() => {
+        this.router.navigate(['/posts/all']);
+      });
+    // }, 10);
+    // this.router.navigate(['/posts/all']).then(() => {
+      // window.location.reload();
+    // });
   }
 }

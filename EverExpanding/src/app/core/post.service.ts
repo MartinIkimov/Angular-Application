@@ -27,11 +27,6 @@ export class PostService {
   addPost$(file: any){
     this.http.post(`${environment.apiUrl}posts/add`, file, { observe: 'response' })
       .subscribe((response) => {
-        if (response.status === 200) {
-          console.log('200')
-        } else {
-          console.log('else')
-        }
       }
       );
   }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from 'src/app/core/token-storage.service';
 import {IPost} from 'src/app/core/interfaces/post'
 import { environment } from 'src/environments/environment';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-profile',
@@ -17,12 +18,13 @@ export class ProfileComponent implements OnInit {
 
   constructor(private token: TokenStorageService, private httpClient: HttpClient) { }
   ngOnInit(): void {
+    
     this.currentUser = this.token.getUser();
     this.httpClient.get<IPost[]>(`${environment.apiUrl}users/profile`). subscribe(
       posts => {
         this.currentUserPosts = posts;
       }
-    )
+    );
   }
 
 

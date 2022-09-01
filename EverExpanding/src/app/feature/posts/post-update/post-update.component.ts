@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPost } from 'src/app/core/interfaces/post';
 import { PostService } from 'src/app/core/post.service';
@@ -11,15 +11,15 @@ import { PostService } from 'src/app/core/post.service';
 })
 export class PostUpdateComponent implements OnInit {
 
-  editPostFormGroup: FormGroup = this.formBuilder.group({
-    title: new FormControl('', [Validators.required]),
-    categories: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
+  editPostFormGroup: UntypedFormGroup = this.formBuilder.group({
+    title: new UntypedFormControl('', [Validators.required]),
+    categories: new UntypedFormControl('', [Validators.required]),
+    description: new UntypedFormControl('', [Validators.required]),
   })
 
   currentPost: IPost;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
     private postService: PostService,
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
@@ -84,13 +84,10 @@ export class PostUpdateComponent implements OnInit {
     }
 
     this.postService.editPost$(uploadImageData, this.currentPost.id);
-    setTimeout(() => {
-      this.postService.getAllPosts$();
-    }, 5);
-    
-    this.router.navigate(['/posts/all']).then(() => {
-      window.location.reload();
-    });
+  
+      this.postService.getAllPosts$().subscribe(() => {
+        this.router.navigate(['/posts/all']);
+      });
   }
 
 }

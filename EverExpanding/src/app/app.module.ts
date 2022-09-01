@@ -28,7 +28,7 @@ import { AuthGuard } from './core/guards/auth.guard';
     PagesModule,
     PlanetsModule,
     AuthModule,
-    PostsModule
+    PostsModule,
   ],
   providers: [authInterceptorProviders, AuthGuard],
   bootstrap: [

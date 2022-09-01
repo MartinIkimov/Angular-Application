@@ -70,16 +70,11 @@ export class PostDetailPageComponent implements OnInit {
   deletePost() {
     this.activatedRoute.params.subscribe(params => {
       const postId = params['postId'];
-      this.postService.deletePost$(postId).subscribe(
-        data => {
-          console.log(data);
-        }
-      );
-      console.log(postId)
-      this.router.navigate(['/posts/all']);
-      setTimeout(() => {
-        window.location.reload();
-      }, 1);
+      this.postService.deletePost$(postId)
+      .subscribe(() => {
+        this.postService.getAllPosts$();
+        this.router.navigate(['/posts/all'])
+      });
     })
   }
 }

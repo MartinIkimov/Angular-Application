@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/core/token-storage.service';
 import { UserService } from 'src/app/core/user.service';
@@ -12,16 +12,16 @@ import { UserService } from 'src/app/core/user.service';
 export class LoginComponent implements OnInit {
   errorMessage: string = '';
 
-  loginFormGroup: FormGroup = this.formBuilder.group({
-    username: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    password: new FormControl('', [Validators.required])
+  loginFormGroup: UntypedFormGroup = this.formBuilder.group({
+    username: new UntypedFormControl('', [Validators.required, Validators.minLength(3)]),
+    password: new UntypedFormControl('', [Validators.required])
   })
 
   isLoggedIn = false;
   roles: string[] = [];
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private userService: UserService,
     private router: Router,
     private tokenStorage: TokenStorageService) { }
