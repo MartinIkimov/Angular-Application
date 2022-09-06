@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { authInterceptorProviders } from './auth/auth.interceptor';
 import { PostsModule } from './feature/posts/posts.module';
 import { AuthGuard } from './core/guards/auth.guard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AuthGuard } from './core/guards/auth.guard';
     PlanetsModule,
     AuthModule,
     PostsModule,
+    BrowserAnimationsModule,
   ],
   providers: [authInterceptorProviders, AuthGuard],
   bootstrap: [

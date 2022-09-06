@@ -13,6 +13,8 @@ import com.example.angularwebprojectbackend.service.MediaService;
 import com.example.angularwebprojectbackend.service.PostService;
 import com.example.angularwebprojectbackend.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -150,5 +152,17 @@ public class PostServiceImpl implements PostService {
                 .stream()
                 .map(Role::getRole)
                 .anyMatch(r -> r == RoleNameEnum.ADMIN);
+    }
+
+    @Override
+    public Page<PostViewModelSummary> findAll(Pageable pageable) {
+        Page<Post> postPage = postRepository.findAll(pageable);
+        return postPage.map(post -> {
+            PostViewModelSummary dto = modelMapper.map(post, PostViewModelSummary.class);
+            dto.setAuthor(post.getAuthor().getUsername());
+            Optional<UserEntity> user = userService.findByUsername(dto.getAuthor());
+            dto.setAuthorId(user.get().getId());
+            return dto;
+        });
     }
 }

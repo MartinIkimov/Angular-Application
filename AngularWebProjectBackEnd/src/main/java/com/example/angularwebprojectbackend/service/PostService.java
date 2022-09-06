@@ -4,6 +4,8 @@ package com.example.angularwebprojectbackend.service;
 import com.example.angularwebprojectbackend.model.entity.Post;
 import com.example.angularwebprojectbackend.model.service.PostServiceModel;
 import com.example.angularwebprojectbackend.model.view.PostViewModelSummary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -23,4 +25,6 @@ public interface PostService {
     void updatePost(PostServiceModel serviceModel, Long id);
 
     boolean findByUsernameAndPostIdCanDelete(long id, String name);
+
+    Page<PostViewModelSummary> findAll(Pageable pageable);
 }

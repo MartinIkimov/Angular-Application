@@ -1,13 +1,14 @@
 
 
 <main>
-    <div class="container-lg border border-darkGreen rounded-3 text-white bg-altBlack mb-5">
+    <div class="posts container-lg border border-darkGreen rounded-3 text-white bg-altBlack mb-5">
         <div *ngIf="posts">
             <app-post-list-item *ngFor="let post of posts" [post]="post"></app-post-list-item>
+
+                <mat-paginator class="border border-darkGreen mt-4 mb-4 pagination d-flex justify-content-center text-lightGreen bg-altBlack" showFirstLastButtons hidePageSize="true" [pageSize]="10" [length]="totalElements" (page)="nextPage($event)"></mat-paginator>
+
             <div *ngIf="posts.length === 0">No Posts!</div>
         </div>
-        <div *ngIf="!posts">
-            <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#86c232" type = "ball-circus" [fullScreen] = "false"><p style="color: #86C232" > Loading... </p></ngx-spinner>
-        </div>
+        <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#86c232" type = "ball-circus" [fullScreen] = "false"><p style="color: #86C232" > Loading... </p></ngx-spinner>
     </div>
 </main>

@@ -31,8 +31,12 @@ export class PostService {
       );
   }
 
-  getAllPosts$(): Observable<IPost[]> {
-    return this.http.get<IPost[]>(`${environment.apiUrl}posts/all`);
+  // getAllPosts$(): Observable<IPost[]> {
+  //   return this.http.get<IPost[]>(`${environment.apiUrl}posts/all`);
+  // }
+
+  getAllPosts$(params?: any): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}posts/all`, {params});
   }
 
   deletePost$(id: number): Observable<any> {

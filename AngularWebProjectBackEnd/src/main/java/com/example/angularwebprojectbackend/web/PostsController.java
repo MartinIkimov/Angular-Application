@@ -9,6 +9,9 @@ import com.example.angularwebprojectbackend.service.CloudinaryService;
 import com.example.angularwebprojectbackend.service.MediaService;
 import com.example.angularwebprojectbackend.service.PostService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -69,9 +72,10 @@ public class PostsController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<PostViewModelSummary>> allPosts() {
-        List<PostViewModelSummary> posts = postService.getAllPosts();
-        return new ResponseEntity<>(posts, HttpStatus.OK);
+    public Page<PostViewModelSummary> allPosts(@RequestParam(defaultValue = "0") int page,
+                                               @RequestParam(defaultValue = "3") int size) {
+        Pageable paging = PageRequest.of(page, size);
+        return postService.findAll(paging);
     }
 
     @GetMapping("/{id}/details")
